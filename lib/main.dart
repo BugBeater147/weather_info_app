@@ -1,3 +1,4 @@
+import 'dart:math';  // Import dart:math for generating random weather data
 import 'package:flutter/material.dart';
 
 void main() {
@@ -14,8 +15,28 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class WeatherHome extends StatelessWidget {
+// Convert WeatherHome to a StatefulWidget so that we can update the UI
+class WeatherHome extends StatefulWidget {
+  @override
+  _WeatherHomeState createState() => _WeatherHomeState();
+}
+
+class _WeatherHomeState extends State<WeatherHome> {
   final TextEditingController cityController = TextEditingController();
+  String city = '';
+  String temperature = '';
+  String condition = '';
+
+  // Function to simulate fetching weather data
+  void fetchWeather() {
+    final random = Random();
+    setState(() {
+      city = cityController.text;  // Get the city name from the TextField
+      temperature = (15 + random.nextInt(15)).toString();  // Random temperature between 15°C and 30°C
+      final conditions = ['Sunny', 'Cloudy', 'Rainy'];
+      condition = conditions[random.nextInt(conditions.length)];  // Random weather condition
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,15 +55,14 @@ class WeatherHome extends StatelessWidget {
             ),
             SizedBox(height: 16),
             ElevatedButton(
-              onPressed: () {
-                // Fetch weather logic will be added here later
-              },
+              onPressed: fetchWeather,
               child: Text('Fetch Weather'),
             ),
             SizedBox(height: 16),
-            Text('City: [City Name]'),
-            Text('Temperature: [Temperature] °C'),
-            Text('Condition: [Weather Condition]'),
+            // Display the fetched weather data
+            Text('City: $city'),
+            Text('Temperature: $temperature°C'),
+            Text('Condition: $condition'),
           ],
         ),
       ),
