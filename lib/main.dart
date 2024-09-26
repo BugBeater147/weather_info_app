@@ -26,6 +26,7 @@ class _WeatherHomeState extends State<WeatherHome> {
   String city = '';
   String temperature = '';
   String condition = '';
+  List<String> forecast = []; // List to hold the 7-day forecast data
 
   // Function to simulate fetching weather data
   void fetchWeather() {
@@ -37,6 +38,19 @@ class _WeatherHomeState extends State<WeatherHome> {
       final conditions = ['Sunny', 'Cloudy', 'Rainy'];
       condition = conditions[
           random.nextInt(conditions.length)]; // Random weather condition
+    });
+  }
+
+  // Function to simulate fetching 7-day weather forecast
+  void fetch7DayForecast() {
+    final random = Random();
+    setState(() {
+      forecast = List.generate(7, (index) {
+        final temp = (15 + random.nextInt(15)).toString();
+        final conditions = ['Sunny', 'Cloudy', 'Rainy'];
+        final condition = conditions[random.nextInt(conditions.length)];
+        return 'Day ${index + 1}: $temp°C, $condition';
+      });
     });
   }
 
@@ -65,6 +79,14 @@ class _WeatherHomeState extends State<WeatherHome> {
             Text('City: $city'),
             Text('Temperature: $temperature°C'),
             Text('Condition: $condition'),
+            SizedBox(height: 16),
+            // Button to fetch 7-day forecast
+            ElevatedButton(
+              onPressed: fetch7DayForecast,
+              child: Text('Fetch 7-Day Forecast'),
+            ),
+            // Display the 7-day forecast
+            ...forecast.map((day) => Text(day)).toList(),
           ],
         ),
       ),
