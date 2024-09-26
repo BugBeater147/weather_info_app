@@ -1,4 +1,4 @@
-import 'dart:math';  // Import dart:math for generating random weather data
+import 'dart:math'; // Import dart:math for generating random weather data
 import 'package:flutter/material.dart';
 
 void main() {
@@ -31,10 +31,12 @@ class _WeatherHomeState extends State<WeatherHome> {
   void fetchWeather() {
     final random = Random();
     setState(() {
-      city = cityController.text;  // Get the city name from the TextField
-      temperature = (15 + random.nextInt(15)).toString();  // Random temperature between 15°C and 30°C
+      city = cityController.text; // Get the city name from the TextField
+      temperature = (15 + random.nextInt(15))
+          .toString(); // Random temperature between 15°C and 30°C
       final conditions = ['Sunny', 'Cloudy', 'Rainy'];
-      condition = conditions[random.nextInt(conditions.length)];  // Random weather condition
+      condition = conditions[
+          random.nextInt(conditions.length)]; // Random weather condition
     });
   }
 
